@@ -30,3 +30,5 @@ The subprojects are combined in `combined_report.Rmd`.
 - [child](https://bookdown.org/yihui/rmarkdown-cookbook/child-document.html) documents are used to stitch together a final report
 
 `render_combined_report.R` is used for rendering the combined report from the command line
+
+`data/` contains the COVID-19 dataset and a descriptive README about the dataset
