@@ -1,0 +1,9 @@
+binary_figures/output/*.rds
+binary_figures/output/*.html
+continuous_figures/output/*.rds
+continuous_figures/output/*.html
+model/output/*.rds
+model/output/*.html
+table1/output/*.rds
+table1/output/*.html
+*.html
