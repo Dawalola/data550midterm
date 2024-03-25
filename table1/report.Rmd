@@ -1,0 +1,36 @@
+---
+title: "table1_ketki"
+author: "Ketki Joshi"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r}
+library(labelled)
+library(gtsummary)
+library(dplyr)
+library(here)
+
+data <- read.csv("C:/MPH/SPRING_2024/DATA550/midterm/data550midterm/data/covid_sub.csv", header = TRUE)
+
+#labeling the study variables
+var_label(finaldata) <- list(
+  AGE = "age of the patient",
+  SEX = "sex of the patient",
+  PREGNANT = "pregnancy Status",
+  PATIENT_TYPE = "Hospitalized or not",
+  COPD = "Chronic Obstructive Pulmonary Disease",
+  DIABETES = "Diabetes"
+)
+
+##decriptive statistics table
+data |>
+  select("AGE", "SEX", "PREGNANT", "PATIENT_TYPE", "COPD", "DIABETES") |>
+  tbl_summary(by = "PATIENT_TYPE") |>
+  modify_spanning_header(c("stat_1", "stat_2") ~ "**Descriptive Statistics**") |>
+  add_overall()|>
+  add_p()
+
+```
+
+
