@@ -14,7 +14,7 @@ library(here)
 data <- read.csv("C:/MPH/SPRING_2024/DATA550/midterm/data550midterm/data/covid_sub.csv", header = TRUE)
 
 #labeling the study variables
-var_label(finaldata) <- list(
+var_label(data) <- list(
   AGE = "age of the patient",
   SEX = "sex of the patient",
   PREGNANT = "pregnancy Status",
