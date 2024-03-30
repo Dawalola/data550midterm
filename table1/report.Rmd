@@ -6,6 +6,7 @@ output: html_document
 ---
 
 ```{r}
+install.packages("dplyr")
 library(labelled)
 library(gtsummary)
 library(dplyr)
@@ -18,15 +19,16 @@ var_label(data) <- list(
   AGE = "age of the patient",
   SEX = "sex of the patient",
   PREGNANT = "pregnancy Status",
-  PATIENT_TYPE = "Hospitalized or not",
+  ICU = "Patient admitted to ICU or not",
+  PNEUMONIA = "Pneumonia",
   COPD = "Chronic Obstructive Pulmonary Disease",
   DIABETES = "Diabetes"
 )
 
 ##decriptive statistics table
 data |>
-  select("AGE", "SEX", "PREGNANT", "PATIENT_TYPE", "COPD", "DIABETES") |>
-  tbl_summary(by = "PATIENT_TYPE") |>
+  select("AGE", "SEX", "PREGNANT", "ICU", "PNEUMONIA", "COPD", "DIABETES") |>
+  tbl_summary(by = "ICU") |>
   modify_spanning_header(c("stat_1", "stat_2") ~ "**Descriptive Statistics**") |>
   add_overall()|>
   add_p()
