@@ -4,13 +4,84 @@ output: html_document
 
 ```{r, here-i-am}
 here::i_am(
-  "continuous_figures/report.Rmd"
+  "comorbidities/report.Rmd"
 )
 
-data <- readRDS(
-  file = here::here("data/covid_sub.rds")
-)
+data <- read.csv(here::here("data/covid_sub.csv"))
 
 ```
 
-<!-- CHILD REPORT CODE GOES BELOW HERE -->
+```{r}
+# Subset the dataset to include only relevant variables
+library(dplyr)
+library(ggplot2)
+library(gtsummary)
+comorbidity_data <- data %>% 
+  select(X, AGE, SEX, PREGNANT, ICU, PATIENT_TYPE, COPD, DIABETES, DATE_DIED)
+
+# Convert "Yes" to 1 and "No" or "N/A" to 0 for COPD and DIABETES variables
+comorbidity_data <- comorbidity_data %>% 
+  mutate(
+    COPD = ifelse(COPD == "Yes", 1, 0),
+    DIABETES = ifelse(DIABETES == "Yes", 1, 0)
+  )
+```
+
+
+the prevalence of COPD within each age group. It helps visualize how the prevalence of COPD varies across different age categories, providing insights into the relationship between age and COPD in COVID patients
+```{r}
+
+# Recategorize age variable
+comorbidity_data <- comorbidity_data %>%
+  mutate(age_group = case_when(
+    AGE < 18 ~ "Children",
+    AGE >= 18 & AGE <= 39 ~ "Young Adult",
+    AGE >= 40 & AGE <= 59 ~ "Middle Adult",
+    AGE >= 60 ~ "Old Age"
+  ))
+
+COPD_by_age <- comorbidity_data %>%
+  group_by(age_group) %>%
+  summarise(COPD_prevalence = mean(COPD == "1", na.rm = TRUE))
+
+# Visualize the relationship between age categories and COPD
+ggplot(COPD_by_age, aes(x = age_group, y = COPD_prevalence)) +
+  geom_bar(stat = "identity", fill = "skyblue", color = "black") +
+  labs(title = "Prevalence of COPD by Age Group",
+       x = "Age Group",
+       y = "COPD Prevalence") +
+  theme_minimal()
+
+# Save the COPD prevalence data as an RDS file
+saveRDS(
+  COPD_by_age,
+  file = here::here("comorbidities/output/COPD_prevalence.rds")
+)
+```
+
+
+
+The distribution of people to with COVID with diabetes and likelihood of ICU admission to check disease severity.
+```{r}
+# Create a summary table
+diabetes_icu_table <- tbl_cross(
+  data,
+  row = DIABETES,
+  col = ICU
+)
+
+# Add labels
+diabetes_icu_table <- diabetes_icu_table %>%
+  modify_header(update = list(label = "**Diabetes**")) %>%
+  modify_spanning_header(update = list(label = "**ICU Admission**"))
+
+# Print the formatted table
+diabetes_icu_table
+
+
+# Save the data as an RDS file
+saveRDS(
+  diabetes_icu_table,
+  file = here::here("comorbidities/output/diabetes_ICU.rds")
+)
+```
