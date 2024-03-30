@@ -4,13 +4,68 @@ output: html_document
 
 ```{r, here-i-am}
 here::i_am(
-  "binary_figures/report.Rmd"
+  "sociodemographic/report.Rmd"
 )
 
-data <- readRDS(
-  file = here::here("data/covid_sub.rds")
-)
-
+data_subset <- readRDS(file = here::here("sociodemographic/output/data_subset.rds"))
 ```
 
 <!-- CHILD REPORT CODE GOES BELOW HERE -->
+
+# Plot of Sociodemographic Variables
+
+
+## Age Boxplot
+
+```{r}
+boxplot(data_subset$AGE,
+        main = "Boxplot of Patients' Ages")
+
+hist(data_subset$AGE,
+     main = "Histogram of Patients' Ages",
+     xlab = "AGE")
+```
+
+
+
+## Sex of the Patients
+
+```{r}
+df.sex <- data.frame(SEX = c(mean(data_subset$SEX == "female"),
+                             mean(data_subset$SEX == "male")))
+barplot(as.matrix(df.sex),
+        xlim = c(0, 2),
+        legend.text = c("female", "male"),
+        args.legend = list(x = 2, y = 1))
+```
+
+## Whether the Patients Are Hospitalized or Have Returned Home
+
+```{r}
+df.hos <- data.frame(PATIENT_TYPE = c(mean(data_subset$PATIENT_TYPE == "hospitalization"),
+                                      mean(data_subset$PATIENT_TYPE == "returned home")))
+barplot(as.matrix(df.hos),
+        xlim = c(0, 2),
+        legend.text = c("hospitalization", "returned home"),
+        args.legend = list(x = 2, y = 1))
+```
+
+## Other Sociodemographic Factors
+
+- PREGNANT: whether the patient is pregnant or not.  
+- ICU: whether the patient had been admitted to an Intensive Care Unit.  
+- PNEUMONIA : whether the patient already have air sacs inflammation or not.
+
+```{r}
+df.prop <- data.frame(PREGNANT = c(mean(data_subset$PREGNANT == "No", na.rm = T),
+                                   mean(data_subset$PREGNANT == "Yes", na.rm = T)),
+                      ICU = c(mean(data_subset$ICU == "No", na.rm = T),
+                              mean(data_subset$ICU == "Yes", na.rm = T)),
+                      PNEUMONIA = c(mean(data_subset$PNEUMONIA == "No", na.rm = T),
+                                    mean(data_subset$PNEUMONIA == "Yes", na.rm = T)))
+barplot(as.matrix(df.prop),
+        xlim = c(0, 5),
+        legend.text = c("No", "Yes"),
+        args.legend = list(x = 5, y = 1))
+```
+
