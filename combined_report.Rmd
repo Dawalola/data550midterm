@@ -12,16 +12,6 @@ opts_chunk$set(
 )
 ```
 
-```{r, load-data}
-here::i_am(
-  "combined_report.Rmd"
-)
-
-data <- read.csv(
-  file = here::here("data/covid_sub.csv") 
-)
-```
-
 ```{r, child-reports}
-#| child = c("table1/report.Rmd", "model/report.Rmd", "binary_figures/report.Rmd", "continuous_figures/report.Rmd")
+#| child = c("table1/report.Rmd", "model/report.Rmd", "sociodemographic/report.Rmd", "comorbidities/report.Rmd")
 ```
