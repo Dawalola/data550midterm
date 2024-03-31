@@ -1,0 +1,67 @@
+---
+output: html_document
+---
+
+```{r, load-libraries, echo=FALSE}
+library(labelled)
+library(gtsummary)
+library(dplyr)
+library(here)
+```
+
+
+```{r, here-i-am-table1, echo=FALSE}
+here::i_am(
+  "table1/report.Rmd"
+)
+
+data <- read.csv(
+  file = here::here("data/covid_sub.csv")
+)
+
+```
+
+
+```{r, label-and-format, echo=FALSE}
+
+#creating new variable called DEATH by recording DEAT_DIED variable
+data$DEATH <- ifelse(is.na(data$DATE_DIED), 0, 1)
+
+
+#labeling the study variables
+var_label(data) <- list(
+  AGE = "Age",
+  SEX = "Sex",
+  PREGNANT = "Pregnancy Status",
+  ICU = "Patient admitted to ICU or not",
+  PNEUMONIA = "Pneumonia",
+  COPD = "Chronic Obstructive Pulmonary Disease",
+  DIABETES = "Diabetes",
+  DEATH = "Death of COVID-19 patient"
+)
+
+#Checking distribution for AGE variable: 71 NA's
+# summary(data$AGE)
+
+```
+
+
+```{r, make-table, echo=FALSE}
+##decriptive statistics table
+data |>
+  select("AGE", "SEX", "PREGNANT", "ICU", "PNEUMONIA", "COPD", "DIABETES", "DEATH") |>
+  tbl_summary(by = "DEATH",
+              type = list(AGE ~ 'continuous',
+                          SEX ~ 'categorical',
+                          PREGNANT ~ 'categorical',
+                          ICU ~ 'categorical',
+                          PNEUMONIA ~ 'categorical',
+                          COPD ~ 'categorical',
+                          DIABETES ~ 'categorical')) |>
+  modify_spanning_header(c("stat_1", "stat_2") ~ "**Descriptive Statistics by COVID-19 Death: 1= Yes, 0=No**") |>
+  add_overall()|>
+  add_p()
+
+```
+
+

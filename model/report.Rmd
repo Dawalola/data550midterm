@@ -2,15 +2,14 @@
 output: html_document
 ---
 
-```{r, here-i-am}
+```{r, here-i-am-model}
 here::i_am(
   "table1/report.Rmd"
 )
 
-data <- readRDS(
-  file = here::here("data/covid_sub.rds")
+data <- read.csv(
+  file = here::here("data/covid_sub.csv")
 )
-
 ```
 
 <!-- CHILD REPORT CODE GOES BELOW HERE -->

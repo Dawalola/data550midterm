@@ -2,6 +2,7 @@
 output: html_document
 ---
 
+<<<<<<< HEAD
 ```{r, here-i-am}
 here::i_am(
   "binary_figures/report.Rmd"
@@ -9,6 +10,15 @@ here::i_am(
 
 data <- readRDS(
   file = here::here("data/covid_sub.rds")
+=======
+```{r, here-i-am-sociodemographic}
+here::i_am(
+  "sociodemographic/report.Rmd"
+)
+
+data <- read.csv(
+  file = here::here("data/covid_sub.csv")
+>>>>>>> table1_ketki
 )
 
 ```
