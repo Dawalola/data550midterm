@@ -2,16 +2,6 @@
 output: html_document
 ---
 
-<<<<<<< HEAD
-```{r, here-i-am-model}
-here::i_am(
-  "table1/report.Rmd"
-)
-
-data <- read.csv(
-  file = here::here("data/covid_sub.csv")
-)
-=======
 ```{r, libs, include = FALSE}
 library(tidyverse)
 library(config)
@@ -25,20 +15,18 @@ print(params)
 ```
 
 
-```{r, here-i-am, include = FALSE}
+```{r, here-i-am-report, include = FALSE}
 here::i_am(
   "model/report.Rmd"
 )
 ```
 
-<!-- CHILD REPORT CODE GOES BELOW HERE -->
 
 ```{r, model-load, echo = FALSE}
 model <- readRDS(file = here::here("model/output/logistic_model.Rds"))
 
-model_results <- tbl_regression(model, exponentiate = TRUE)
+model_results <- tbl_regression(model, exponentiate = TRUE) 
 
-print(model_results)
->>>>>>> nick_test
+model_results
 ```
 
