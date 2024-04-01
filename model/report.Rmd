@@ -2,15 +2,32 @@
 output: html_document
 ---
 
-```{r, here-i-am}
+```{r, libs, include = FALSE}
+library(tidyverse)
+library(config)
+library(gtsummary)
+```
+
+```{r, read-config, include = FALSE}
+params <- config::get(file = here::here("model/config.yml"))
+
+print(params)
+```
+
+
+```{r, here-i-am, include = FALSE}
 here::i_am(
-  "table1/report.Rmd"
+  "model/report.Rmd"
 )
-
-data <- readRDS(
-  file = here::here("data/covid_sub.rds")
-)
-
 ```
 
 <!-- CHILD REPORT CODE GOES BELOW HERE -->
+
+```{r, model-load, echo = FALSE}
+model <- readRDS(file = here::here("model/output/logistic_model.Rds"))
+
+model_results <- tbl_regression(model, exponentiate = TRUE)
+
+print(model_results)
+```
+
