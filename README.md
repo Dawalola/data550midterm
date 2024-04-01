@@ -18,7 +18,7 @@ The report is been broken into four subproject child reports. Each coder is resp
   - `model/output/` is a folder to hold output associated with regression model
     - `model/output/logistic_model.Rds` is created by `model/code/build_model.R` and knit into child report
   - `model/config.yml` is a configuration file where users can turn off/on variables to be included in the regression model for the dataset by setting their values to TRUE (include) or FALSE (exclude)
-	- `model/report.Rmd` is the child report for the regression model 
+  - `model/report.Rmd` is the child report for the regression model 
 	
 #### Comorbiditiy Figures: Dawa
 
@@ -31,7 +31,7 @@ The report is been broken into four subproject child reports. Each coder is resp
 - `sociodemographic/` contains all code and output related to creating descriptive figures for the sociodemographic variables in the dataset (Yuzhou)
   - `sociodemographic/code/` is a folder for scripts associated with making figures associated with the sociodemographic variables of interest for child report
 	  - `sociodemographic/code/create_subset.R` is a script that subsets the data to the sociodemographic variables of interest
-	- `sociodemographic/report.Rmd` is the child report for the sociodemographic figures
+  - `sociodemographic/report.Rmd` is the child report for the sociodemographic figures
 
 #### Additional Files: Allison
 
