@@ -2,6 +2,13 @@
 output: html_document
 ---
 
+## Comorbidity Visualizations
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(gtsummary)
+```
 
 ```{r, here-i-am-comorbidities}
 
@@ -18,9 +25,6 @@ data <- read.csv(
 
 ```{r}
 # Subset the dataset to include only relevant variables
-library(dplyr)
-library(ggplot2)
-library(gtsummary)
 comorbidity_data <- data %>% 
   select(X, AGE, SEX, PREGNANT, ICU, PATIENT_TYPE, COPD, DIABETES, DATE_DIED)
 
@@ -32,8 +36,7 @@ comorbidity_data <- comorbidity_data %>%
   )
 ```
 
-
-the prevalence of COPD within each age group. It helps visualize how the prevalence of COPD varies across different age categories, providing insights into the relationship between age and COPD in COVID patients
+We visualize the prevalence of COPD within each age group. This helps demonstrate how COPD prevalence changes with age, providing insights into the relationship between age and COPD in COVID-19 patients.
 ```{r}
 
 # Recategorize age variable
@@ -45,9 +48,16 @@ comorbidity_data <- comorbidity_data %>%
     AGE >= 60 ~ "Old Age"
   ))
 
+
 COPD_by_age <- comorbidity_data %>%
+  filter(!is.na(age_group)) %>%
   group_by(age_group) %>%
   summarise(COPD_prevalence = mean(COPD == "1", na.rm = TRUE))
+
+
+# Set the order of age groups
+COPD_by_age$age_group <- factor(COPD_by_age$age_group, levels = c("Children", "Young Adult", "Middle Adult", "Old Age"))
+
 
 # Visualize the relationship between age categories and COPD
 ggplot(COPD_by_age, aes(x = age_group, y = COPD_prevalence)) +
@@ -63,8 +73,10 @@ saveRDS(
   file = here::here("comorbidities/output/COPD_prevalence.rds")
 )
 ```
+COPD is more prevalent in older COVID-19 patients.
 
-The distribution of people to with COVID with diabetes and likelihood of ICU admission to check disease severity.
+
+We use ICU admission as a measure of disease severity. We stratify by diabetes status to assess if there's a difference in ICU admission rates between diabetic and non-diabetic individuals with COVID-19. 
 ```{r}
 # Create a summary table
 diabetes_icu_table <- tbl_cross(

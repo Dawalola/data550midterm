@@ -2,6 +2,17 @@
 output: html_document
 ---
 
+## Introduction
+
+Coronavirus disease (caused by the COVID-19 virus) is an infectious disease and most
+people infected with the COVID-19 virus will experience mild to moderate respiratory
+illness and may recover without requiring special treatment. Vulnerable populations
+including pregnant women, and older people are more likely to develop serious illness.
+We will examine descriptive statistics for the population including age, sex, pregnancy, ICU admission, pneumonia, COPD, and diabetes. The selected variables are from a [larger COVID-19 database published by the Mexican government](https://datos.gob.mx/busca/dataset/informacion-referente-a-casos-covid-19-en-mexico).
+We will create a logistic regression model for death using these variables.
+Covariates can be included and excluded from the logistic regression model through the configuration file.
+
+
 ```{r, load-libraries, echo=FALSE}
 library(labelled)
 library(gtsummary)
@@ -45,6 +56,7 @@ var_label(data) <- list(
 
 ```
 
+## Table 1
 
 ```{r, make-table, echo=FALSE}
 ##decriptive statistics table
@@ -58,7 +70,7 @@ data |>
                           PNEUMONIA ~ 'categorical',
                           COPD ~ 'categorical',
                           DIABETES ~ 'categorical')) |>
-  modify_spanning_header(c("stat_1", "stat_2") ~ "**Descriptive Statistics by COVID-19 Death: 1= Yes, 0=No**") |>
+  modify_spanning_header(c("stat_1", "stat_2") ~ "**Descriptive Statistics by COVID-19 Death: 0=No, 1= Yes**") |>
   add_overall()|>
   add_p()
 
