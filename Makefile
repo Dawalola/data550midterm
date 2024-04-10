@@ -9,7 +9,10 @@ combined_report.html: data/covid_sub.csv model/output/logistic_model.Rds render_
 table1/report.Rmd comorbidities/report.Rmd sociodemographic/report.Rmd sociodemographic/output/data_subset.rds
 	Rscript render_combined_report.R
 	
-.PHONY: clean
+.PHONY: clean install
 clean:
 	rm -f model/output/*.Rds && rm -f model/*.html && rm -f table1/output/*.Rds \
 	&& rm -f sociodemographic/output/*.rds && rm -f comorbidities/output/*.rds 
+	
+install:
+	R -e "renv::restore()"

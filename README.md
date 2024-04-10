@@ -45,13 +45,14 @@ The report is been broken into four subproject child reports. Each coder is resp
 
 ### Build Report
 
-To build the final report, use the `make` command to run the Makefile in the main project directory
+To build the final report, first use the `make install` command to ensure all required packages are synchronized for the project.
+Next, use the `make combined_report.html` command to run the Makefile in the main project directory and build the final parent report. 
 
 ### Customize Report
 
 The report can be customized to include/exclude different covariates in our model through the use of the `model/config.yml` file. 
 The file lists all covariates included in the model.
-The user can set each of these covariates to `TRUE` or `FALSE` to include or exclude them in the report. 
+The user can set each of these covariates to `TRUE` to include or `FALSE` to exclude them in the logistic regression model. 
 
 
 
