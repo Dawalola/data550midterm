@@ -7,3 +7,4 @@ model/output/*.html
 table1/output/*.rds
 table1/output/*.html
 *.html
+.Rproj.user
