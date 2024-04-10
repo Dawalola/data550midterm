@@ -28,6 +28,17 @@ model <- readRDS(file = here::here("model/output/logistic_model.Rds"))
 
 model_results <- tbl_regression(model, exponentiate = TRUE)
 
-print(model_results)
+model_results
 ```
 
+
+```{r, include = FALSE}
+mostsig <- names(which.min(summary(model)$coefficients[-1,4]))
+mostsigeffect <- exp(coef(model)[mostsig])
+```
+
+## Results:
+
+In our logistic model, it is found that `r mostsig` is the most significant
+covariate with OR = `r mostsigeffect`. Thus, there is sufficient evidence that `r mostsig` increases
+patient odds of dying by `r mostsigeffect` times while holding `r names(coef(model))[!names(coef(model)) %in% c("(Intercept)", mostsig)]` variables constant.
