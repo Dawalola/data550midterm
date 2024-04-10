@@ -10,9 +10,9 @@ here::i_am(
 data_subset <- readRDS(file = here::here("sociodemographic/output/data_subset.rds"))
 ```
 
-# Plot of Sociodemographic Variables
+## Plot of Sociodemographic Variables
 
-## Age Boxplot
+### Age Boxplot
 
 ```{r}
 boxplot(data_subset$AGE,
@@ -23,7 +23,7 @@ hist(data_subset$AGE,
      xlab = "AGE")
 ```
 
-## Sex of the Patients
+### Sex of the Patients
 
 ```{r}
 df.sex <- data.frame(SEX = c(mean(data_subset$SEX == "female"),
@@ -34,7 +34,7 @@ barplot(as.matrix(df.sex),
         args.legend = list(x = 2, y = 1))
 ```
 
-## Whether the Patients Are Hospitalized or Have Returned Home
+### Whether the Patients Are Hospitalized or Have Returned Home
 
 ```{r}
 df.hos <- data.frame(PATIENT_TYPE = c(mean(data_subset$PATIENT_TYPE == "hospitalization"),
@@ -45,7 +45,7 @@ barplot(as.matrix(df.hos),
         args.legend = list(x = 2, y = 1))
 ```
 
-## Other Sociodemographic Factors
+### Other Sociodemographic Factors
 
 - PREGNANT: whether the patient is pregnant or not.  
 - ICU: whether the patient had been admitted to an Intensive Care Unit.  

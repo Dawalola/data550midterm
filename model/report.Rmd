@@ -2,6 +2,8 @@
 output: html_document
 ---
 
+## Logistic Regression Model
+
 ```{r, libs, include = FALSE}
 library(tidyverse)
 library(config)
@@ -32,11 +34,12 @@ model_results
 
 
 ```{r, include = FALSE}
-mostsig <- names(which.min(summary(model)$coefficients[-1,4]))
+mostsig_idx <- which.min(summary(model)$coefficients[-1,4])
+mostsig <- names(model$coefficients)[mostsig_idx + 1]
 mostsigeffect <- exp(coef(model)[mostsig])
 ```
 
-## Results:
+### Results:
 
 In our logistic model, it is found that `r mostsig` is the most significant
 covariate with OR = `r mostsigeffect`. Thus, there is sufficient evidence that `r mostsig` increases

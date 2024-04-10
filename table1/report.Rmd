@@ -56,7 +56,7 @@ var_label(data) <- list(
 
 ```
 
-## Table 1
+### Table 1
 
 ```{r, make-table, echo=FALSE}
 ##decriptive statistics table

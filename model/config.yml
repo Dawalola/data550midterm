@@ -1,8 +1,8 @@
 default:
-  sex: TRUE
+  sex: FALSE
   preg: FALSE
   icu: TRUE
-  copd: TRUE
+  copd: FALSE
   diab: TRUE
   age: TRUE
   

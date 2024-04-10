@@ -12,4 +12,4 @@ table1/report.Rmd comorbidities/report.Rmd sociodemographic/report.Rmd sociodemo
 .PHONY: clean
 clean:
 	rm -f model/output/*.Rds && rm -f model/*.html && rm -f table1/output/*.Rds \
-	&& rm -f sociodemographic/output/*.Rds && rm -f comorbidities/output/*.rds 
+	&& rm -f sociodemographic/output/*.rds && rm -f comorbidities/output/*.rds 

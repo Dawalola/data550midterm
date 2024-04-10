@@ -36,6 +36,8 @@ comorbidity_data <- comorbidity_data %>%
   )
 ```
 
+### Prevalence of COPD by age group
+
 We visualize the prevalence of COPD within each age group. This helps demonstrate how COPD prevalence changes with age, providing insights into the relationship between age and COPD in COVID-19 patients.
 ```{r}
 
@@ -73,9 +75,10 @@ saveRDS(
   file = here::here("comorbidities/output/COPD_prevalence.rds")
 )
 ```
+
 COPD is more prevalent in older COVID-19 patients.
 
-
+### Diabetes & Disease Severity
 We use ICU admission as a measure of disease severity. We stratify by diabetes status to assess if there's a difference in ICU admission rates between diabetic and non-diabetic individuals with COVID-19. 
 ```{r}
 # Create a summary table
